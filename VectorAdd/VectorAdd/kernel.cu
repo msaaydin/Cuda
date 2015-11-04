@@ -4,7 +4,7 @@
 
 #include <stdio.h>
 
-const int  N = 10;
+const int  N = 400;
 
 // CUDA Kernel for Vector Addition
 __global__ void Vector_Addition(const int *dev_a, const int *dev_b, int *dev_c)
