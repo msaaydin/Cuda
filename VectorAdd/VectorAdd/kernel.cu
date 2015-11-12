@@ -1,20 +1,19 @@
 
 #include "cuda_runtime.h"
 #include "device_launch_parameters.h"
-
+#define thread_size 128;
 #include <stdio.h>
 
 const int  N = 400;
 
+
 // CUDA Kernel for Vector Addition
 __global__ void Vector_Addition(const int *dev_a, const int *dev_b, int *dev_c)
 {
-	//Get the id of thread within a block
-	unsigned int tid = threadIdx.x;
-
+	//Get the id of thread within a block	
+	unsigned int tid = threadIdx.x + blockIdx.x*blockDim.x;
 	if (tid < N) // check the boundry condition for the threads
 		dev_c[tid] = dev_a[tid] + dev_b[tid];
-
 }
 
 
@@ -25,7 +24,7 @@ int main(void)
 
 		//Device array
 		int *dev_a, *dev_b, *dev_c;
-
+		int block_size = N / thread_size;
 		//Allocate the memory on the GPU
 		cudaMalloc((void **)&dev_a, N*sizeof(int));
 		cudaMalloc((void **)&dev_b, N*sizeof(int));
@@ -43,7 +42,7 @@ int main(void)
 		cudaMemcpy(dev_b, Host_b, N*sizeof(int), cudaMemcpyHostToDevice);
 
 		//Make a call to GPU kernel
-		Vector_Addition <<< 1, N >>> (dev_a, dev_b, dev_c);
+		Vector_Addition <<< block_size, 128>>> (dev_a, dev_b, dev_c);
 
 		//Copy back to Host array from Device array
 		cudaMemcpy(Host_c, dev_c, N*sizeof(int), cudaMemcpyDeviceToHost);
