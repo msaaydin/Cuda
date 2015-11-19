@@ -7,7 +7,7 @@
 const long N = 16 * 16;
 
 
-// CUDA Kernel for Vector Addition
+
 __global__ void Vector_Addition( long *dev_a)
 {
 	//Get the id of thread within a block	
@@ -49,7 +49,7 @@ int main(void)
 	//Display the result
 	for (int i = 0; i<100; i++)
 		printf(" =%d \n", Host_a[i]);
-	//printf("%d + %d = %d",Host_a[400],Host_b[400],Host_c[400]);
+	
 	//Free the Device array memory
 	cudaFree(dev_a);
 	return 0;
