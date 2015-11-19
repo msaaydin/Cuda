@@ -30,3 +30,24 @@ int main(int argc, char **argv)
 	free(h_x);
 	return 0;
 }
+// Output:
+/*
+n, x = 0  0.0
+n, x = 1  1.0
+n, x = 2  2.0
+n, x = 3  3.0
+n, x = 4  4.0
+n, x = 5  5.0
+n, x = 6  6.0
+n, x = 7  7.0
+n, x = 8  0.0
+n, x = 9  1.0
+n, x = 10  2.0
+n, x = 11  3.0
+n, x = 12  4.0
+n, x = 13  5.0
+n, x = 14  6.0
+n, x = 15  7.0
+
+
+*/
